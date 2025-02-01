@@ -88,7 +88,6 @@ export default {
   z-index: 1;
 }
 
-/* Button positioned at the bottom */
 .scroll-btn {
   display: flex;
   flex-direction: column;
