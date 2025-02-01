@@ -15,11 +15,6 @@
       </div>
 
       <div class="input-group">
-        <label for="companions">Number of companions </label>
-        <input type="number" id="companions" min=0 v-model="form.companions" placeholder="Enter number of companions" />
-      </div>
-
-      <div class="input-group">
         <label for="message">Message <span>*</span></label>
         <input type="text" id="message" v-model="form.message" placeholder="Write something..." required />
       </div>
@@ -48,7 +43,6 @@ export default {
       form: {
         name: "",
         email: "",
-        companions: null,
         message: "",
         attending: true,
       },
