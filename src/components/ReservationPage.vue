@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     submitRSVP() {
+      // this should call the backend api to save or update guest attendances on the DB.
       console.log("RSVP Submitted:", this.form);
       alert("Thank you for your RSVP!");
     },

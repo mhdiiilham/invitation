@@ -74,28 +74,28 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
-  z-index: 0; /* Place it below the content */
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 0;
 }
 
 .text {
   margin-bottom: 20px;
-  z-index: 1; /* Ensures the text is above the overlay */
-  color: white; /* Optional: Make the text color white */
+  z-index: 1;
+  color: white
 }
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1; /* Ensure the button is above the overlay */
+  z-index: 1;
 }
 
 .scroll-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Space between icon and text */
+  gap: 10px;
   padding: 15px 30px;
   font-size: 18px;
   background: rgba(255, 255, 255, 0.2);
@@ -105,17 +105,6 @@ export default {
   border-radius: 10px;
   transition: background 0.3s;
 }
-
-/* .scroll-btn {
-  padding: 15px 30px;
-  font-size: 18px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid white;
-  color: white;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: background 0.3s;
-} */
 
 .scroll-btn:hover {
   background: rgba(255, 255, 255, 0.4);
