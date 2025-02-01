@@ -1,8 +1,8 @@
 <template>
   <div id="cover">
     <div id="header">
-      <span id="title">- The Wedding of -</span>
-      <span id="date">Saturday, 2 August 2025</span>
+      <!-- <span id="title">- The Wedding of -</span> -->
+      <span id="date">... today, tomorrow, and forever</span>
     </div>
     <br />
   </div>
@@ -75,6 +75,7 @@ html, body {
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  background-color: black;
 }
 
 /* Dark Overlay Effect */
