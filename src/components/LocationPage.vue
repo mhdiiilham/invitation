@@ -1,34 +1,64 @@
 <template>
   <div id="cover">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.5850329496025!2d110.42350077491811!3d-7.620049092395363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5dfd81bbd009%3A0x2f15d94e960d9a38!2sKalyana%20Resort!5e0!3m2!1sen!2sid!4v1738406002401!5m2!1sen!2sid"
-      width="600"
-      height="450"
-      style="border:0;"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-    ></iframe>
+    <button @click="openGoogleMaps">Open Location</button>
   </div>
 </template>
   
 <script>
 export default {
-  name: 'LocationPage'
-}
+  name: 'LocationPage',
+  methods: {
+    openGoogleMaps() {
+      window.open("https://maps.app.goo.gl/eTUpaVpe8uXp7r2M9", "_blank");
+    }
+  }
+};
 </script>
   
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap');
+
 #cover {
   height: 100vh;
   width: 100vw;
-  background-color: grey; /* Set background to black */
+  background-color: grey;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-iframe {
-  border: 2px solid white; /* Optional: Add white border to make it pop */
-  border-radius: 10px; /* Optional: Rounded corners */
+/* Elegant Flat Button */
+button {
+  font-family: 'Playfair', serif;
+  font-size: 1.5em;
+  font-weight: 500;
+  padding: 12px 36px;
+  background: none;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  outline: none;
+}
+
+/* Flat Underline Effect */
+button::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+button:hover::after {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.8);
 }
 </style>
