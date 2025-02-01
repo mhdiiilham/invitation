@@ -1,28 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="first-section">
+      <first-page @openInvitationClicked="handleScrollDownToNextSection"></first-page>
+    </div>
+    <div id="second-section">
+      <second-page></second-page>
+    </div>
+    <second-page></second-page>
+    <second-page></second-page>
+    <div>
+      <footer class="bg-body-tertiary text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: black">
+          © 2025 Made with <span>&#10084;</span> by her soon to be husband
+          <a class="text-body" href="https://muhammadilham.xyz/">Ilham</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FirstPage from './components/FirstPage.vue';
+import SecondPage from './components/SecondPage.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    FirstPage,
+    SecondPage
+  },
+  methods: {
+    handleScrollDownToNextSection: function() {
+      document.getElementById("second-section").scrollIntoView({ behavior: "smooth",  });
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>
