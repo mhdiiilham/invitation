@@ -18,6 +18,8 @@
         <div class="text-center p-3" style="background-color: black">
           © 2025 Made with <span>&#10084;</span> by her soon to be husband
           <a class="text-body" href="https://muhammadilham.xyz/">Ilham</a>
+          <br />
+          <a class="text-body" target="_blank" href="https://icons8.com/icon/40138/wedding">Wedding</a> icon by <a class="text-body" target="_blank" href="https://icons8.com">Icons8</a>
         </div>
         <!-- Copyright -->
       </footer>
