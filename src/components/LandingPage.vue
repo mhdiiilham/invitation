@@ -5,11 +5,6 @@
       <span id="date">Saturday, 2 August 2025</span>
     </div>
     <br />
-    <div class="container">
-      <button class="scroll-btn" @click="scrollToSecond">
-        <span class="button-text">Open Invitation</span>
-      </button>
-    </div>
   </div>
 </template>
 
@@ -102,39 +97,6 @@ html, body {
   z-index: 1;
 }
 
-/* Transparent Open Invitation Button */
-.scroll-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  width: 160px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.1); /* Semi-transparent */
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  position: absolute;
-  bottom: 80px; /* Moved up for visibility */
-  border: 2px solid white;
-  border-radius: 10px;
-}
-
-/* Smooth Hover Effect */
-.scroll-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3); /* Soft glowing effect */
-  transform: scale(1.03);
-}
-
-/* Button Text */
-.button-text {
-  font-size: 16px;
-  font-family: "Montserrat", serif;
-  text-align: center;
-}
-
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   #title {
@@ -145,17 +107,6 @@ html, body {
   #date {
     font-size: 1em;
     bottom: -10px;
-  }
-
-  .scroll-btn {
-    width: 140px;
-    height: 50px;
-    padding: 12px;
-    bottom: 100px; /* Move even higher for smaller screens */
-  }
-
-  .button-text {
-    font-size: 14px;
   }
 }
 </style>

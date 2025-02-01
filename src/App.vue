@@ -3,7 +3,7 @@
     <div id="first-section">
       <landing-page @openInvitationClicked="handleScrollDownToNextSection"></landing-page>
     </div>
-    <div id="closed" v-show="opened">
+    <div id="closed">
       <div id="second-section">
         <details-page></details-page>
       </div>
@@ -48,17 +48,7 @@ export default {
     LocationPage,
     ReserveationPage,
   },
-  methods: {
-    handleScrollDownToNextSection() {
-      this.opened = true;
-      this.$nextTick(() => {
-        const section = document.getElementById("second-section");
-        if (section) {
-          section.scrollIntoView({ behavior: "smooth" });
-        }
-      });
-    },
-  }
+  methods: {},
 }
 </script>
 
