@@ -6,8 +6,12 @@
     <div id="second-section">
       <second-page></second-page>
     </div>
-    <second-page></second-page>
-    <second-page></second-page>
+    <div id="reservation">
+      <reserveation-page></reserveation-page>
+    </div>
+    <div id="location-page">
+      <location-page></location-page>
+    </div>
     <div>
       <footer class="bg-body-tertiary text-center text-lg-start">
         <!-- Copyright -->
@@ -24,12 +28,16 @@
 <script>
 import FirstPage from './components/FirstPage.vue';
 import SecondPage from './components/SecondPage.vue';
+import ReserveationPage from './components/ReservationPage.vue';
+import LocationPage from './components/LocationPage.vue';
 
 export default {
   name: 'App',
   components: {
     FirstPage,
-    SecondPage
+    SecondPage,
+    LocationPage,
+    ReserveationPage,
   },
   methods: {
     handleScrollDownToNextSection: function() {

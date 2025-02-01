@@ -1,12 +1,13 @@
 <template>
   <div id="cover">
     <div id="header">
-      <h1 id="title">The Wedding of</h1>
-      <h2 id="name">Ilham & Oca</h2>
+      <span id="title">The Wedding of</span>
+      <span id="name">Ilham & Oca</span>
+      <span id="date">Saturday, 2 August 2025</span>
     </div>
     <br />
     <div class="container">
-      <button class="scroll-btn" @click="scrollToSecond">Open Invitation</button>
+      <button class="scroll-btn" @click="scrollToSecond"><span class="material-symbols-outlined">drafts</span>Open Invitation</button>
     </div>
   </div>
 </template>
@@ -22,11 +23,20 @@ export default {
 </script>
 
 <style scoped>
+#header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; /* Ensure the text is above the overlay */
+}
+
 #title {
   font-family: "DM Serif Text", serif;
   color: white;
   font-weight: 500;
   font-size: 2em;
+  margin-bottom: 5px; /* Reduce spacing */
 }
 
 #name {
@@ -34,14 +44,14 @@ export default {
   color: white;
   font-weight: 500;
   font-size: 5em;
+  margin-bottom: 5px; /* Reduce spacing */
 }
 
-#header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1; /* Ensure the text is above the overlay */
+#date {
+  font-family: "DM Serif Text", serif;
+  color: white;
+  font-size: 1.5em;
+  margin-bottom: 20px; /* Reduce spacing but keep some separation */
 }
 
 #cover {
@@ -82,6 +92,10 @@ export default {
 }
 
 .scroll-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between icon and text */
   padding: 15px 30px;
   font-size: 18px;
   background: rgba(255, 255, 255, 0.2);
@@ -91,6 +105,17 @@ export default {
   border-radius: 10px;
   transition: background 0.3s;
 }
+
+/* .scroll-btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.3s;
+} */
 
 .scroll-btn:hover {
   background: rgba(255, 255, 255, 0.4);
