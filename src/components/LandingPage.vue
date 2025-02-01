@@ -1,8 +1,7 @@
 <template>
   <div id="cover">
     <div id="header">
-      <span id="title">The Wedding of</span>
-      <img id="logo" src="@/assets/Logo.png" alt="Wedding Logo" />
+      <span id="title">- The Wedding of -</span>
       <span id="date">Saturday, 2 August 2025</span>
     </div>
     <br />
@@ -27,32 +26,35 @@ export default {
 <style scoped>
 #header {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
+  background-image: url('@/assets/Logo.png'); /* Set logo as background */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 40vh; /* Adjust height to fit the logo */
+  position: relative; /* To position text outside of the logo */
 }
 
 #title {
-  font-family: "DM Serif Text", serif;
+  font-family: "Jura", serif;
   color: white;
   font-weight: 500;
   font-size: 2em;
-  margin: 0; /* No margin, elements will be super close */
-}
-
-#logo {
-  width: 40vw; /* Reduced further */
-  max-width: 200px; /* Even smaller logo */
-  height: auto;
-  margin: 0; /* No margin, elements will be super close */
+  position: absolute;
+  top: -10px; /* Move the title above the logo */
+  margin: 0;
 }
 
 #date {
-  font-family: "DM Serif Text", serif;
+  font-family: "Jura", serif;
   color: white;
   font-size: 1.5em;
-  margin: 0; /* No margin, elements will be super close */
+  position: absolute;
+  bottom: -10px; /* Move the date below the logo */
+  margin: 0;
 }
 
 #cover {
@@ -62,7 +64,6 @@ export default {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-image: url('../assets/FirstPage.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -101,7 +102,7 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   position: absolute;
-  bottom: 40px; /* Adjust this to move the button closer/further */
+  bottom: 40px;
 }
 
 /* Smooth Hover Effect */
@@ -120,24 +121,21 @@ export default {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  #logo {
-    max-width: 80vw;
-    max-height: 160px;
-  }
-
   #title {
-    font-size: 1.5em;
+    font-size: 1em;
+    top: -10px; /* Keep the title position above the logo */
   }
 
   #date {
-    font-size: 1.2em;
+    font-size: 1em;
+    bottom: -10px; /* Keep the date position below the logo */
   }
 
   .scroll-btn {
     width: 140px;
     height: 50px;
     padding: 12px;
-    bottom: 30px; /* Moves the button slightly up on smaller screens */
+    bottom: 30px;
   }
 
   .button-text {
