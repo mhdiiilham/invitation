@@ -17,13 +17,22 @@
 export default {
   methods: {
     scrollToSecond() {
-      this.$emit('openInvitationClicked');
+      this.$emit("openInvitationClicked");
     }
   }
 };
 </script>
 
 <style scoped>
+/* General Reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Header with Logo */
 #header {
   display: flex;
   justify-content: center;
@@ -35,9 +44,10 @@ export default {
   background-position: center;
   width: 100vw;
   height: 40vh; /* Adjust height to fit the logo */
-  position: relative; /* To position text outside of the logo */
+  position: relative;
 }
 
+/* Wedding Title */
 #title {
   font-family: "Jura", serif;
   color: white;
@@ -48,6 +58,7 @@ export default {
   margin: 0;
 }
 
+/* Date Under Title */
 #date {
   font-family: "Jura", serif;
   color: white;
@@ -57,6 +68,7 @@ export default {
   margin: 0;
 }
 
+/* Fullscreen Cover Section */
 #cover {
   display: flex;
   flex-direction: column;
@@ -70,8 +82,9 @@ export default {
   position: relative;
 }
 
+/* Dark Overlay Effect */
 #cover::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -81,6 +94,7 @@ export default {
   z-index: 0;
 }
 
+/* Centering the Button */
 .container {
   display: flex;
   justify-content: center;
@@ -88,6 +102,7 @@ export default {
   z-index: 1;
 }
 
+/* Transparent Open Invitation Button */
 .scroll-btn {
   display: flex;
   flex-direction: column;
@@ -101,7 +116,9 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   position: absolute;
-  bottom: 40px;
+  bottom: 80px; /* Moved up for visibility */
+  border: 2px solid white;
+  border-radius: 10px;
 }
 
 /* Smooth Hover Effect */
@@ -122,19 +139,19 @@ export default {
 @media (max-width: 768px) {
   #title {
     font-size: 1em;
-    top: -10px; /* Keep the title position above the logo */
+    top: -10px;
   }
 
   #date {
     font-size: 1em;
-    bottom: -10px; /* Keep the date position below the logo */
+    bottom: -10px;
   }
 
   .scroll-btn {
     width: 140px;
     height: 50px;
     padding: 12px;
-    bottom: 30px;
+    bottom: 100px; /* Move even higher for smaller screens */
   }
 
   .button-text {
