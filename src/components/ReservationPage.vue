@@ -2,6 +2,7 @@
   <div id="reservation">
     <h1>RSVP</h1>
     <p>Please for the guests to fill out the attendance form below</p>
+    <p>{{ name }}</p>
 
     <form @submit.prevent="submitRSVP">
       <div class="input-group">
@@ -55,6 +56,11 @@ export default {
       alert("Thank you for your RSVP!");
     },
   },
+  mounted() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const rsvpName = urlParams.get('name');
+      this.form.name = rsvpName;
+    },
 };
 </script>
 
