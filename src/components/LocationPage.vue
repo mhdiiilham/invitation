@@ -6,7 +6,6 @@
   
 <script>
 export default {
-  name: 'LocationPage',
   methods: {
     openGoogleMaps() {
       window.open("https://maps.app.goo.gl/eTUpaVpe8uXp7r2M9", "_blank");

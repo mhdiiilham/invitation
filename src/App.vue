@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <audio-component></audio-component>
     <div id="first-section">
-      <landing-page @openInvitationClicked="handleScrollDownToNextSection"></landing-page>
+      <landing-page></landing-page>
     </div>
     <div id="closed">
       <div id="second-section">
@@ -34,6 +35,7 @@ import LandingPage from './components/LandingPage.vue';
 import DetailsPage from './components/DetailsPage.vue';
 import ReserveationPage from './components/ReservationPage.vue';
 import LocationPage from './components/LocationPage.vue';
+import AudioComponent from './components/YoutubeAudio.vue';
 
 export default {
   name: 'App',
@@ -47,6 +49,7 @@ export default {
     DetailsPage,
     LocationPage,
     ReserveationPage,
+    AudioComponent,
   },
   methods: {},
 }

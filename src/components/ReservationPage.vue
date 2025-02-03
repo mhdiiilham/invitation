@@ -2,7 +2,6 @@
   <div id="reservation">
     <h1>RSVP</h1>
     <p>Please for the guests to fill out the attendance form below</p>
-    <p>{{ name }}</p>
 
     <form @submit.prevent="submitRSVP">
       <div class="input-group">
@@ -38,7 +37,6 @@
 
 <script>
 export default {
-  name: "ReservationPage",
   data() {
     return {
       form: {
