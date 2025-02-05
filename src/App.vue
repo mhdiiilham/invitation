@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <audio-component></audio-component>
+    <!-- <audio-component></audio-component> -->
+    <div id="sound"></div>
     <div id="first-section">
       <landing-page></landing-page>
     </div>
@@ -35,13 +36,14 @@ import LandingPage from './components/LandingPage.vue';
 import DetailsPage from './components/DetailsPage.vue';
 import ReserveationPage from './components/ReservationPage.vue';
 import LocationPage from './components/LocationPage.vue';
-import AudioComponent from './components/YoutubeAudio.vue';
+import AudioFile from './assets/BackgroundSong.mp3';
 
 export default {
   name: 'App',
   data() {
     return {
-      opened: false
+      audio: null,
+      hasInteracted: false,
     }
   },
   components: {
@@ -49,9 +51,43 @@ export default {
     DetailsPage,
     LocationPage,
     ReserveationPage,
-    AudioComponent,
   },
-  methods: {},
+  methods: {
+    playAudio() {
+      if (!this.audio) {
+        this.audio = new Audio(AudioFile); // Load the file
+        this.audio.loop = true; // Loop the music
+      }
+
+      this.audio.play().then(() => {
+        console.log("Audio is playing");
+      }).catch(err => {
+        console.warn("Audio blocked:", err);
+      });
+    },
+
+    handleUserInteraction() {
+      if (!this.hasInteracted) {
+        this.playAudio();
+        this.hasInteracted = true;
+        this.removeEventListeners();
+      }
+    },
+
+    removeEventListeners() {
+      window.removeEventListener('scroll', this.handleUserInteraction);
+      window.removeEventListener('click', this.handleUserInteraction);
+      window.removeEventListener('touchstart', this.handleUserInteraction);
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleUserInteraction);
+    window.addEventListener('click', this.handleUserInteraction);
+    window.addEventListener('touchstart', this.handleUserInteraction);
+  },
+  beforeDestroy() {
+    this.removeEventListeners();
+  }
 }
 </script>
 
