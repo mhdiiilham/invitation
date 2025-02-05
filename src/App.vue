@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <!-- <audio-component></audio-component> -->
-    <div id="sound"></div>
     <div id="first-section">
       <landing-page></landing-page>
     </div>
@@ -55,8 +53,8 @@ export default {
   methods: {
     playAudio() {
       if (!this.audio) {
-        this.audio = new Audio(AudioFile); // Load the file
-        this.audio.loop = true; // Loop the music
+        this.audio = new Audio(AudioFile);
+        this.audio.loop = true;
       }
 
       this.audio.play().then(() => {
