@@ -64,6 +64,13 @@ export default {
       });
     },
 
+    pauseAudio() {
+      if (this.audio && !this.audio.paused) {
+        this.audio.pause();
+        console.log("Audio paused");
+      }
+    },
+
     handleUserInteraction() {
       if (!this.hasInteracted) {
         this.playAudio();
@@ -76,12 +83,23 @@ export default {
       window.removeEventListener('scroll', this.handleUserInteraction);
       window.removeEventListener('click', this.handleUserInteraction);
       window.removeEventListener('touchstart', this.handleUserInteraction);
-    }
+    },
+
+    handleVisibilityChange() {
+      if (document.hidden) {
+        this.pauseAudio();
+      } else {
+        this.playAudio();
+      }
+    },
   },
   mounted() {
     window.addEventListener('scroll', this.handleUserInteraction);
     window.addEventListener('click', this.handleUserInteraction);
     window.addEventListener('touchstart', this.handleUserInteraction);
+
+    // Listen for tab switching
+    document.addEventListener('visibilitychange', this.handleVisibilityChange);
   },
   beforeDestroy() {
     this.removeEventListeners();
