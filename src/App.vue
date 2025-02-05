@@ -21,6 +21,10 @@
             <a class="text-body" target="_blank" href="https://muhammadilham.xyz/">Ilham</a>
             <br />
             <a class="text-body" target="_blank" href="https://icons8.com/icon/40138/wedding">Wedding</a> icon by <a class="text-body" target="_blank" href="https://icons8.com">Icons8</a>
+            <br />
+            <small>
+              **Disclaimer:** I do not own the rights to the song "<a class="text-body" target="_blank" href="https://www.youtube.com/watch?v=nxMokRj0bl8">Alexandra</a>" by **Reality Club**. All rights belong to the respective owner.
+            </small>
           </div>
           <!-- Copyright -->
         </footer>
