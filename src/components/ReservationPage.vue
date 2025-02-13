@@ -1,9 +1,9 @@
 <template>
   <div id="reservation">
     <h1>RSVP</h1>
-    <p>Please for the guests to fill out the attendance form below</p>
+    <p v-if="!isConfirm">Please for the guests to fill out the attendance form below.</p>
 
-    <form @submit.prevent="submitRSVP">
+    <form @submit.prevent="submitRSVP" v-if="!isConfirm">
       <div class="input-group">
         <label for="name">Your name <span>*</span></label>
         <input type="text" id="name" v-model="form.name" placeholder="Type your name" required />
@@ -29,14 +29,24 @@
           <label for="no">No</label>
         </div>
       </div>
-
       <button id="submit-button" type="submit">CONFIRMATION</button>
     </form>
+    <div v-if="isConfirm">
+      <p>Thank you for your confirmation, please keep this QR Code.</p>
+      <qrcode value="Hello, World!" :options="{ width: 300 }"></qrcode>
+    </div>
+    <button v-if="isConfirm" v-show="!hideSaveButton" id="save-qr" @click="saveQrCode">Save To Device</button>
   </div>
 </template>
 
 <script>
+import QrcodeVue from 'qrcode.vue';
+import html2canvas from 'html2canvas';
+
 export default {
+  comments: {
+    QrcodeVue,
+  },
   data() {
     return {
       form: {
@@ -45,6 +55,10 @@ export default {
         message: "",
         attending: true,
       },
+      isConfirm: false,
+      qrCodeIdentifier: 'https://muhammadilham.xyz',
+      size: 300,
+      hideSaveButton: false,
     };
   },
   methods: {
@@ -52,6 +66,26 @@ export default {
       // this should call the backend api to save or update guest attendances on the DB.
       console.log("RSVP Submitted:", this.form);
       alert("Thank you for your RSVP!");
+      this.isConfirm = true;
+    },
+    saveQrCode() {
+      this.hideSaveButton = true;
+      const qrElement = document.getElementById("reservation");
+
+      if (!qrElement) {
+        console.error("QR Code element not found");
+        return;
+      }
+
+      html2canvas(qrElement, { scale: 2 }).then(canvas => {
+        const imageURL = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = imageURL;
+        link.download = "WeddingOfOcaAndIlham.png";
+        link.click();
+      }).catch(error => {
+        console.error("Error capturing QR Code:", error);
+      });
     },
   },
   mounted() {
