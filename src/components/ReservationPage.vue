@@ -2,16 +2,15 @@
   <div id="reservation">
     <h1>RSVP</h1>
     <p v-if="!isConfirm">Please for the guests to fill out the attendance form below.</p>
-
     <form @submit.prevent="submitRSVP" v-if="!isConfirm">
       <div class="input-group">
         <label for="name">Your name <span>*</span></label>
-        <input type="text" id="name" v-model="form.name" placeholder="Type your name" required />
+        <input type="text" id="name" :disabled="autofill" v-model="form.name" placeholder="Type your name" required />
       </div>
 
       <div class="input-group">
-        <label for="email">Your email</label>
-        <input type="email" id="email" v-model="form.email" placeholder="Type your email address" />
+        <label for="email">Phone Number </label>
+        <input type="text" id="phoneNumber" :disabled="autofill" v-model="form.phoneNumber" placeholder="Type your phone number" />
       </div>
 
       <div class="input-group">
@@ -33,7 +32,7 @@
     </form>
     <div v-if="isConfirm">
       <p>Thank you for your confirmation, please keep this QR Code.</p>
-      <qrcode value="Hello, World!" :options="{ width: 300 }"></qrcode>
+      <qrcode :value="invitationIdentifier" :options="{ width: 300 }"></qrcode>
     </div>
     <button v-if="isConfirm" v-show="!hideSaveButton" id="save-qr" @click="saveQrCode">Save To Device</button>
   </div>
@@ -51,14 +50,16 @@ export default {
     return {
       form: {
         name: "",
-        email: "",
+        phoneNumber: "",
         message: "",
         attending: true,
       },
       isConfirm: false,
-      qrCodeIdentifier: 'https://muhammadilham.xyz',
       size: 300,
       hideSaveButton: false,
+      invitationIdentifier: null,
+      decodedIdentifier: null,
+      autofill: false,
     };
   },
   methods: {
@@ -66,6 +67,8 @@ export default {
       // this should call the backend api to save or update guest attendances on the DB.
       console.log("RSVP Submitted:", this.form);
       alert("Thank you for your RSVP!");
+      this.decodedIdentifier.will_attend_event = this.form.attending;
+      this.invitationIdentifier = btoa(JSON.stringify(this.decodedIdentifier));
       this.isConfirm = true;
     },
     saveQrCode() {
@@ -90,8 +93,13 @@ export default {
   },
   mounted() {
       const urlParams = new URLSearchParams(window.location.search);
-      const rsvpName = urlParams.get('name');
-      this.form.name = rsvpName;
+      this.invitationIdentifier = urlParams.get('id');
+      if (this.invitationIdentifier) {
+        this.decodedIdentifier = JSON.parse(atob(this.invitationIdentifier));
+        this.form.name = this.decodedIdentifier.name;
+        this.form.phoneNumber = this.decodedIdentifier.phone_number;
+        this.autofill = true;
+      }
     },
 };
 </script>
