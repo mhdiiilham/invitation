@@ -5,12 +5,12 @@
     <form @submit.prevent="submitRSVP" v-if="!isConfirm">
       <div class="input-group">
         <label for="name">Your name <span>*</span></label>
-        <input type="text" id="name" :disabled="autofill" v-model="form.name" placeholder="Type your name" required />
+        <input type="text" id="name" :readonly="autofill" v-model="form.name" placeholder="Type your name" required />
       </div>
 
       <div class="input-group">
         <label for="email">Phone Number </label>
-        <input type="text" id="phoneNumber" :disabled="autofill" v-model="form.phoneNumber" placeholder="Type your phone number" />
+        <input type="text" id="phoneNumber" :readonly="autofill" v-model="form.phoneNumber" placeholder="Type your phone number" />
       </div>
 
       <div class="input-group">
@@ -32,7 +32,7 @@
     </form>
     <div v-if="isConfirm">
       <p>Thank you for your confirmation, please keep this QR Code.</p>
-      <qrcode :value="invitationIdentifier" :options="{ width: 300 }"></qrcode>
+      <qrcode :value="qrCodeValue" :options="{ width: 300 }"></qrcode>
     </div>
     <button v-if="isConfirm" v-show="!hideSaveButton" id="save-qr" @click="saveQrCode">Save To Device</button>
   </div>
@@ -41,6 +41,7 @@
 <script>
 import QrcodeVue from 'qrcode.vue';
 import html2canvas from 'html2canvas';
+import axios from 'axios';
 
 export default {
   comments: {
@@ -57,9 +58,10 @@ export default {
       isConfirm: false,
       size: 300,
       hideSaveButton: false,
-      invitationIdentifier: null,
-      decodedIdentifier: null,
       autofill: false,
+      guestShortId: null,
+      qrCodeValue: null,
+      guestInformation: null,
     };
   },
   methods: {
@@ -67,9 +69,11 @@ export default {
       // this should call the backend api to save or update guest attendances on the DB.
       console.log("RSVP Submitted:", this.form);
       alert("Thank you for your RSVP!");
-      this.decodedIdentifier.will_attend_event = this.form.attending;
-      this.invitationIdentifier = btoa(JSON.stringify(this.decodedIdentifier));
+      this.guestInformation["will_attend_event"] = this.form.attending;
+      this.guestInformation["message"] = this.form.message;
+      this.qrCodeValue = btoa();
       this.isConfirm = true;
+      console.log(this.qrCodeValue);
     },
     saveQrCode() {
       this.hideSaveButton = true;
@@ -90,14 +94,25 @@ export default {
         console.error("Error capturing QR Code:", error);
       });
     },
+    async fetchGuestInformation(guestShortId) {
+      try {
+        const response = await axios.get(`https://gosm-179694988436.us-west1.run.app/api/v1/public/guests?short_id=${guestShortId}`);
+        if (response.status === 200) {
+          const { data } = response.data;
+          this.guestInformation = data;
+          this.form.name = this.guestInformation.name;
+          this.form.phoneNumber = this.guestInformation.phone_number;
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
   mounted() {
       const urlParams = new URLSearchParams(window.location.search);
-      this.invitationIdentifier = urlParams.get('id');
-      if (this.invitationIdentifier) {
-        this.decodedIdentifier = JSON.parse(atob(this.invitationIdentifier));
-        this.form.name = this.decodedIdentifier.name;
-        this.form.phoneNumber = this.decodedIdentifier.phone_number;
+      this.guestShortId = urlParams.get('id');
+      if (this.guestShortId) {
+        this.fetchGuestInformation(this.guestShortId);
         this.autofill = true;
       }
     },
