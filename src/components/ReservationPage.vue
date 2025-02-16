@@ -96,7 +96,7 @@ export default {
     },
     async fetchGuestInformation(guestShortId) {
       try {
-        const response = await axios.get(`https://gosm-179694988436.us-west1.run.app/api/v1/public/guests?short_id=${guestShortId}`);
+        const response = await axios.get(`https://gosm.muhammadilham.xyz/api/v1/public/guests?short_id=${guestShortId}`);
         if (response.status === 200) {
           const { data } = response.data;
           this.guestInformation = data;
