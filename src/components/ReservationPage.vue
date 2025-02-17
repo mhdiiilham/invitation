@@ -32,7 +32,7 @@
     </form>
     <div v-if="isConfirm">
       <p>Thank you for your confirmation, please keep this QR Code.</p>
-      <qrcode :value="qrCodeValue" :options="{ width: 300 }"></qrcode>
+      <qrcode :value="qrCodeValue" :options="{ width: 400, margin: 10, color: { dark: '#000000', light: '#ffffff' } }"></qrcode>
     </div>
     <button v-if="isConfirm" v-show="!hideSaveButton" id="save-qr" @click="saveQrCode">Save To Device</button>
   </div>
@@ -71,7 +71,7 @@ export default {
       alert("Thank you for your RSVP!");
       this.guestInformation["will_attend_event"] = this.form.attending;
       this.guestInformation["message"] = this.form.message;
-      this.qrCodeValue = btoa(JSON.stringify(this.guestInformation));
+      this.qrCodeValue = btoa(JSON.stringify({'short_id': this.guestShortId, is_vip: this.guestInformation["is_vip"]}));
       this.isConfirm = true;
       console.log(this.qrCodeValue);
     },
