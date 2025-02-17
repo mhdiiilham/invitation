@@ -2,6 +2,9 @@
   <div id="reservation">
     <h1>RSVP</h1>
     <p v-if="!isConfirm">Please for the guests to fill out the attendance form below.</p>
+    <div v-if="showAlert" class="alert-box">
+    {{ alertMessage }}
+    </div>
     <form @submit.prevent="submitRSVP" v-if="!isConfirm">
       <div class="input-group">
         <label for="name">Your name <span>*</span></label>
@@ -30,9 +33,9 @@
       </div>
       <button id="submit-button" type="submit">CONFIRMATION</button>
     </form>
-    <div v-if="isConfirm">
+    <div v-if="isConfirm" class="qr-container" id="qr-code">
       <p>Thank you for your confirmation, please keep this QR Code.</p>
-      <qrcode :value="qrCodeValue" :options="{ width: 400, margin: 10, color: { dark: '#000000', light: '#ffffff' } }"></qrcode>
+      <qrcode :value="qrCodeValue" :options="{ width: 300, margin: 10, color: { dark: '#000000', light: '#ffffff' } }"></qrcode>
     </div>
     <button v-if="isConfirm" v-show="!hideSaveButton" id="save-qr" @click="saveQrCode">Save To Device</button>
   </div>
@@ -62,36 +65,67 @@ export default {
       guestShortId: null,
       qrCodeValue: null,
       guestInformation: null,
+      alertMessage: null,
+      showAlert: false,
     };
   },
   methods: {
     submitRSVP() {
-      // this should call the backend api to save or update guest attendances on the DB.
-      console.log("RSVP Submitted:", this.form);
-      alert("Thank you for your RSVP!");
       this.guestInformation["will_attend_event"] = this.form.attending;
       this.guestInformation["message"] = this.form.message;
-      this.qrCodeValue = btoa(JSON.stringify({'short_id': this.guestShortId, is_vip: this.guestInformation["is_vip"]}));
+      localStorage.setItem("guest-infomation", JSON.stringify(this.guestInformation));
+      this.showAlert = true;
+      this.alertMessage = "Thank you for confirming your attendance!";
+
+      this.updateAttendingGuest(this.guestShortId, this.form.message, this.form.attending);
+      this.generateQRCode();
+
+      setTimeout(() => {
+        this.showAlert = false;
+      }, 5000);
+    },
+    async updateAttendingGuest(guestShortId, message, isAttending) {
+      try {
+        const response = await axios.post(`https://gosm.muhammadilham.xyz/api/v1/public/guests`, {
+          'short_id': guestShortId,
+          'message': message,
+          'is_attending': isAttending,
+        })
+
+        console.log(response, "data")
+      } catch (error) {
+        console.log(error, "data")
+      }
+    },
+    generateQRCode() {
+      const payload = {
+        'short_id': this.guestShortId,
+        'name': this.guestInformation.name,
+        'is_vip': this.guestInformation["is_vip"],
+      }
+
+      this.qrCodeValue = btoa(JSON.stringify(payload));
       this.isConfirm = true;
-      console.log(this.qrCodeValue);
     },
     saveQrCode() {
       this.hideSaveButton = true;
-      const qrElement = document.getElementById("reservation");
+      this.$nextTick(() => {
+        const qrElement = document.getElementById("reservation");
 
-      if (!qrElement) {
-        console.error("QR Code element not found");
-        return;
-      }
+        if (!qrElement) {
+          console.error("QR Code element not found");
+          return;
+        }
 
-      html2canvas(qrElement, { scale: 2 }).then(canvas => {
-        const imageURL = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = imageURL;
-        link.download = "WeddingOfOcaAndIlham.png";
-        link.click();
-      }).catch(error => {
-        console.error("Error capturing QR Code:", error);
+        html2canvas(qrElement, { scale: 2 }).then(canvas => {
+          const imageURL = canvas.toDataURL("image/png");
+          const link = document.createElement("a");
+          link.href = imageURL;
+          link.download = "WeddingOfOcaAndIlham.png";
+          link.click();
+        }).catch(error => {
+          console.error("Error capturing QR Code:", error);
+        });
       });
     },
     async fetchGuestInformation(guestShortId) {
@@ -102,6 +136,17 @@ export default {
           this.guestInformation = data;
           this.form.name = this.guestInformation.name;
           this.form.phoneNumber = this.guestInformation.phone_number;
+          if (data.will_attend_event) {
+            this.generateQRCode()
+            this.$nextTick(() => {
+              setTimeout(() => {
+                const qrCodeElement = document.getElementById("reservation");
+                if (qrCodeElement) {
+                  qrCodeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              }, 300);
+            });
+          }
         }
       } catch (error) {
         console.log(error)
@@ -109,13 +154,13 @@ export default {
     }
   },
   mounted() {
-      const urlParams = new URLSearchParams(window.location.search);
-      this.guestShortId = urlParams.get('id');
-      if (this.guestShortId) {
-        this.fetchGuestInformation(this.guestShortId);
-        this.autofill = true;
-      }
-    },
+    const urlParams = new URLSearchParams(window.location.search);
+    this.guestShortId = urlParams.get('id');
+    if (this.guestShortId) {
+      this.fetchGuestInformation(this.guestShortId);
+      this.autofill = true;
+    }
+  },
 };
 </script>
 
@@ -216,5 +261,38 @@ button {
 button:hover {
   background: black;
 }
+
+.alert-box {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50; /* ✅ Green success color */
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeInOut 3s ease-in-out;
+}
+
+/* ✅ Smooth fade effect */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+.qr-container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically (if needed) */
+  text-align: center; /* Center text */
+  margin-top: 20px; /* Optional: Add spacing */
+}
+
+
 </style>
 
