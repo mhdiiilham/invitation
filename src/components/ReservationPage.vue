@@ -71,7 +71,7 @@ export default {
       alert("Thank you for your RSVP!");
       this.guestInformation["will_attend_event"] = this.form.attending;
       this.guestInformation["message"] = this.form.message;
-      this.qrCodeValue = btoa();
+      this.qrCodeValue = btoa(JSON.stringify(this.guestInformation));
       this.isConfirm = true;
       console.log(this.qrCodeValue);
     },
