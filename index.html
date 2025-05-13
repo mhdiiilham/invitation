@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- Audio Player -->
+    <div class="audio-player">
+        <audio id="background-music" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <button id="music-toggle" class="music-btn">
+            <span class="music-icon">♪</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Section 1: Header -->
+        <section class="section header-section">
+            <div class="overlay"></div>
+            <div class="content header-content">
+                <div class="names-container">
+                    <h1 class="names">Oca & Ilham</h1>
+                </div>
+                <div class="date-container">
+                    <div class="date">02.10</div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="arrow">↓</div>
+            </div>
+        </section>
+
+        <!-- Section 2: Invitation -->
+        <section class="section invitation-section">
+            <div class="content">
+                <h2 class="script-heading">Dear Friends and Family</h2>
+                <p>With immense joy and excitement, we invite you to share in our special day as we celebrate our love and begin our journey together.</p>
+                <p class="wedding-date">August 2, 2025</p>
+                <p>Your presence will make this day even more memorable and meaningful for us!</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Timeline -->
+        <section class="section timeline-section">
+            <div class="content">
+                <h2 class="script-heading">Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="time">14:00</div>
+                        <div class="event">Guest Arrival</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">15:00</div>
+                        <div class="event">Ceremony</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">16:00</div>
+                        <div class="event">Photos</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">18:00</div>
+                        <div class="event">Reception</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Venue -->
+        <section class="section venue-section">
+            <div class="overlay"></div>
+            <div class="content">
+                <h2 class="script-heading">Venue</h2>
+                <p>Evergreen Gardens</p>
+                <p>123 Blossom Avenue</p>
+                <p>New York, NY 10001</p>
+                <button class="btn view-map-btn">View on Map</button>
+            </div>
+        </section>
+
+        <!-- Section 5: Details -->
+        <section class="section details-section">
+            <div class="content">
+                <h2 class="script-heading">Details</h2>
+                
+                <div class="detail-item">
+                    <h3>Dress Code</h3>
+                    <p>Formal attire is requested. Black tie optional.</p>
+                </div>
+                
+                <div class="detail-item">
+                    <h3>Gifts</h3>
+                    <p>Your presence is the greatest gift. However, if you wish to give something, we have created a registry that reflects our tastes and needs.</p>
+                </div>
+                
+                <div class="detail-item">
+                    <h3>Children</h3>
+                    <p>While we love your little ones, our wedding will be an adult-only celebration. We appreciate your understanding.</p>
+                </div>
+                
+                <div class="detail-item">
+                    <h3>Questions?</h3>
+                    <p>Our wedding coordinator will be happy to assist with any questions you may have.</p>
+                    <p>Contact: wedding@example.com | (123) 456-7890</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: RSVP -->
+        <section class="section rsvp-section">
+            <div class="content">
+                <div id="rsvp-form-container">
+                    <h2 class="script-heading">RSVP</h2>
+                    <p>Please confirm your attendance by July 10, 2025, so we can plan accordingly.</p>
+                    
+                    <form id="rsvp-form">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Will you be attending? *</label>
+                            <div class="radio-group">
+                                <input type="radio" id="attending-yes" name="attending" value="yes" required>
+                                <label for="attending-yes">Yes, I'll be there</label>
+                            </div>
+                            <div class="radio-group">
+                                <input type="radio" id="attending-no" name="attending" value="no">
+                                <label for="attending-no">Unfortunately, I cannot attend</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="guests-container">
+                            <label for="guests">Number of Guests (including yourself) *</label>
+                            <select id="guests" name="guests">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dietary">Dietary Restrictions</label>
+                            <textarea id="dietary" name="dietary" placeholder="Please let us know if you have any dietary restrictions"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn submit-btn">Submit RSVP</button>
+                    </form>
+                </div>
+                
+                <div id="pass-container" style="display: none;">
+                    <h2 class="script-heading">Your Wedding Pass</h2>
+                    <p>Thank you for confirming your attendance! Here is your wedding pass.</p>
+                    
+                    <div class="pass-card">
+                        <div class="pass-header">
+                            <h3>Oca & Ilham's Wedding</h3>
+                            <p>August 10, 2025</p>
+                        </div>
+                        
+                        <div class="guest-info">
+                            <p id="guest-name"></p>
+                            <p id="guest-count"></p>
+                        </div>
+                        
+                        <div class="barcode-container">
+                            <svg id="barcode"></svg>
+                        </div>
+                        
+                        <button id="save-pass-btn" class="btn save-pass-btn">Save Pass</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Footer -->
+        <section class="section footer-section">
+            <div class="content">
+                <p>We can't wait to celebrate with you!</p>
+                <p class="names-signature">Oca & Ilham</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

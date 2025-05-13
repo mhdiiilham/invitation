@@ -1,0 +1,394 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --accent-color: #888888;
+    --border-color: #333333;
+    --input-bg: #111111;
+    --section-padding: 2rem;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3 {
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.script-heading {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Audio Player */
+.audio-player {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.music-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.music-btn.muted .music-icon {
+    text-decoration: line-through;
+}
+
+.music-icon {
+    font-size: 20px;
+}
+
+/* Section Styles */
+.section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--section-padding);
+    position: relative;
+    overflow: hidden;
+}
+
+.content {
+    max-width: 100%;
+    width: 100%;
+    z-index: 2;
+    text-align: center;
+    padding: 1rem;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+/* Header Section */
+.header-section {
+    background-image: url('https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 0;
+}
+
+.names-container {
+    padding-top: 3rem;
+}
+
+.names {
+    font-size: 2.5rem;
+    margin-bottom: 0;
+    font-family: 'Great Vibes', cursive;
+}
+
+.date-container {
+    padding-bottom: 3rem;
+}
+
+.date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 0;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    animation: bounce 2s infinite;
+    z-index: 3;
+}
+
+.arrow {
+    font-size: 1.5rem;
+    color: white;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Invitation Section */
+.invitation-section {
+    background-color: var(--bg-color);
+}
+
+.wedding-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    margin: 1.5rem 0;
+}
+
+/* Timeline Section */
+.timeline-section {
+    background-color: #0a0a0a;
+}
+
+.timeline {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.timeline-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.time {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.event {
+    font-size: 1.1rem;
+}
+
+/* Venue Section */
+.venue-section {
+    background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Details Section */
+.details-section {
+    background-color: #0a0a0a;
+}
+
+.detail-item {
+    margin-bottom: 2rem;
+}
+
+.detail-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+/* RSVP Section */
+.rsvp-section {
+    background-color: var(--bg-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.radio-group {
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.radio-group input {
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+.btn {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+.submit-btn {
+    width: 100%;
+}
+
+/* Pass Card */
+.pass-card {
+    background-color: #111111;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    margin-top: 2rem;
+}
+
+.pass-header {
+    margin-bottom: 1.5rem;
+}
+
+.guest-info {
+    margin-bottom: 1.5rem;
+}
+
+.barcode-container {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 1rem;
+}
+
+.save-pass-btn {
+    margin-top: 1rem;
+}
+
+/* Footer Section */
+.footer-section {
+    background-color: #0a0a0a;
+    min-height: 50vh;
+}
+
+.names-signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    margin-top: 1.5rem;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .content {
+        max-width: 600px;
+    }
+    
+    .names {
+        font-size: 3.5rem;
+    }
+    
+    .date {
+        font-size: 3rem;
+    }
+    
+    .script-heading {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .content {
+        max-width: 800px;
+    }
+    
+    .names {
+        font-size: 4.5rem;
+    }
+}
